@@ -7,6 +7,13 @@ import { MY_CHARACTER_INIT_CONFIG } from './characterConstants';
 import { checkMapCollision } from './utils';
 import { updateCharacterPosition } from './slices/allCharactersSlice'; // Import the new action
 
+import { ref, set } from "firebase/database";
+
+// import { firebaseApp } from "../firebase/firebase"; // adjust path if needed
+import { firebaseDatabase } from '../firebase/firebase';
+
+// const firebaseDatabase = getDatabase(firebaseApp);
+
 const MOVE_DIRECTIONS = {
     'w': { x: 0, y: -1 },
     'a': { x: -1, y: 0 },
@@ -56,6 +63,10 @@ const GameLoop = ({
                 // Check for collisions before updating position
                 if (!checkMapCollision(newPosition.x, newPosition.y)) {
                     console.log(`Updating position in Redux`);
+                    set(ref(firebaseDatabase, 'users/' + MY_CHARACTER_INIT_CONFIG.id + '/position'), {
+                        x: newPosition.x,
+                        y: newPosition.y,
+                    });
                     updateCharacterPosition({
                         id: mycharacterData.id,
                         position: newPosition

@@ -15,17 +15,17 @@ function App() {
   });
   return (
     <>
-        <header>        
-        </header>
-        {socketConnected &&
-          <main class="content">
-              <GameLoop>
-                <Office webrtcSocket={WEBRTC_SOCKET}/>
-              </GameLoop>
-          </main>
-        }
-        <footer>
-        </footer>
+      <header>
+      </header>
+      {socketConnected &&
+        <main class="content">
+          <GameLoop>
+            <Office webrtcSocket={WEBRTC_SOCKET} />
+          </GameLoop>
+        </main>
+      }
+      <footer>
+      </footer>
     </>
   );
 }
