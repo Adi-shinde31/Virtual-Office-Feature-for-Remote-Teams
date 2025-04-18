@@ -14,11 +14,12 @@ function ReceivedVideoCall({ mySocketId, myStream, othersSocketId, webrtcSocket,
 
         peer.on('signal', signal => {
             webrtcSocket.emit('sendAnswer', {
-                callFromUserSocketId: othersSocketId,
-                callToUserSocketId: mySocketId,
+                callFromUserSocketId: mySocketId,    // Client 2’s own socket ID
+                callToUserSocketId: othersSocketId,   // Client 1’s socket ID (sender of the offer)
                 answerSignal: signal
             });
         });
+        
 
         peer.on('stream', (stream) => {
             setRemoteStream(stream);

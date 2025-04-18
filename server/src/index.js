@@ -34,7 +34,13 @@ io.on("connection", (socket) => {
             answerSignal
         });
     });
-
+    
+    // Listen for disconnect events
+    socket.on("disconnect", () => {
+        console.log(`Socket disconnected: ${socket.id}`);
+        // Optionally broadcast a "user disconnected" event to remove streams on client side
+        socket.broadcast.emit("userDisconnected", socket.id);
+    });
 
 });
 

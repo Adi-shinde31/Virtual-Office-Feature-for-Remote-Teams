@@ -20,16 +20,24 @@ function VideoCalls({ myCharacterData, otherCharactersData, webrtcSocket }) {
     }, []);
 
     useEffect(() => {
-        webrtcSocket.on("receiveOffer", payload => {
-            console. log("received offer from ", payload.callFromUserSocketId, ", payload: ", payload);
-            if (!Object.keys(offersReceived).includes(payload.callFromUserSocketId)) {
-                set0ffersReceived({
-                    ... offersReceived,
-                    [payload.callFromUserSocketId]: payload.offerSignal,
-                });
-            }
-        });
+        const handleReceiveOffer = (payload) => {
+            set0ffersReceived(prevOffers => {
+                if (!Object.keys(prevOffers).includes(payload.callFromUserSocketId)) {
+                    console.log("received offer from", payload.callFromUserSocketId, "with payload:", payload);
+                    return { ...prevOffers, [payload.callFromUserSocketId]: payload.offerSignal };
+                }
+                return prevOffers;
+            });
+        };
+
+        webrtcSocket.on("receiveOffer", handleReceiveOffer);
+
+        // Clean up the listener on unmount:
+        return () => {
+            webrtcSocket.off("receiveOffer", handleReceiveOffer);
+        };
     }, [webrtcSocket]);
+
 
     // Only proceed if we have a socket ID
     if (!myCharacterData?.socketId) {
@@ -53,7 +61,7 @@ function VideoCalls({ myCharacterData, otherCharactersData, webrtcSocket }) {
     return <>{
         myCharacterData && <div className="videos">
             <MyVideo myStream={myStream} />
-            
+
             {/* Initiated calls */}
             {Object.keys(initiateCallToUsers).map((othersUserId) => {
                 return <InitiatedVideoCall
@@ -64,9 +72,8 @@ function VideoCalls({ myCharacterData, otherCharactersData, webrtcSocket }) {
                     webrtcSocket={webrtcSocket}
                 />
             })}
-            
 
-            { Object.keys(offersReceived).map((othersSocketId) => {
+            {Object.keys(offersReceived).map((othersSocketId) => {
                 const matchingUserIds = Object.keys(otherCharactersData)
                     .filter((otherUserId) => otherCharactersData[otherUserId].socketId === othersSocketId)
                 console.assert(
@@ -80,7 +87,7 @@ function VideoCalls({ myCharacterData, otherCharactersData, webrtcSocket }) {
                     myStream={myStream}
                     othersSocketId={othersSocketId}
                     webrtcSocket={webrtcSocket}
-                    offerSignal={offersReceived [othersSocketId]}/>
+                    offerSignal={offersReceived[othersSocketId]} />
             })}
         </div>
     }</>;

@@ -18,7 +18,7 @@ function App() {
       <header>
       </header>
       {socketConnected &&
-        <main class="content">
+        <main className="content">
           <GameLoop>
             <Office webrtcSocket={WEBRTC_SOCKET} />
           </GameLoop>

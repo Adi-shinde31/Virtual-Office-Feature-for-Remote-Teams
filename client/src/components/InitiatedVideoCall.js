@@ -26,7 +26,7 @@ function InitiatedVideoCall({ mySocketId, myStream, othersSocketId, webrtcSocket
 
         return peer;
     }, []);
-
+    
     useEffect(() => {
         peerRef.current = createPeer(othersSocketId, mySocketId, myStream, webrtcSocket);
 
