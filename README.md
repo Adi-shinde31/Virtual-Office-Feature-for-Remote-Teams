@@ -5,10 +5,7 @@ This is a collaborative virtual office web application designed to simulate real
 
 ## 🎥 Demo Video
 
-<video width="640" height="360" controls>
-  <source src="docs/OpenAvenues_Demo_Video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Click here to view the video](https://github.com/Adi-shinde31/Virtual-Office-Feature-for-Remote-Teams/blob/master/docs/OpenAvenues_Demo_Video.mp4)
 
 ## 🚀 Steps to Run the Project
 
@@ -102,4 +99,4 @@ The app brings together real-time interaction and video chat to create a collabo
 
 ## ✨ Project Design
 
-![Project Architecture Graph]("docs\Graph.png")
+![Project Architecture Graph]("https://github.com/Adi-shinde31/Virtual-Office-Feature-for-Remote-Teams/blob/master/docs/Graph.png?raw=true")
