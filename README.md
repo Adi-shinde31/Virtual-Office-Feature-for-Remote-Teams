@@ -99,4 +99,4 @@ The app brings together real-time interaction and video chat to create a collabo
 
 ## ✨ Project Design
 
-![Project Architecture Graph]("https://github.com/Adi-shinde31/Virtual-Office-Feature-for-Remote-Teams/blob/master/docs/Graph.png?raw=true")
+![Image](https://github.com/user-attachments/assets/fb0d576d-87f3-4011-8be4-392dd087aedc)
